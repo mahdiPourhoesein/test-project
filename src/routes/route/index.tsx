@@ -2,6 +2,7 @@ import {
     Navigate,
     Route,
     Routes,
+    redirect,
   } from "react-router-dom";
 import ProtectedRoute from "../../components/route/protectedRote";
 import { publicRoutes } from "../publicRoutes";
@@ -13,11 +14,14 @@ import Header from "../../components/ui/header";
 const RouteComponent = () => {
     return(
         <Routes>
-            <Route path="/" element={<PublicRoute/>}>
+            <Route element={<PublicRoute/>}>
                 {publicRoutes.map((route: TRoute)=> (
                     <Route key={route.key} path={route.path} element={route.component} />
                 ))}
-                <Route path="*" element={<Navigate replace to="/sign-in" />} />
+                <Route
+                    path="*"
+                    element={<Navigate to="/sign-in" />}
+                />
             </Route>
             <Route path="/" element={<ProtectedRoute/>}>
                 {privateRoutes.map((route: TRoute)=> (
